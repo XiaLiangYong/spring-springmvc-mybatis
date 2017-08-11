@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="helloService" class="com.spring.service.HelloService" scope="singleton"></bean>
+    <!--通过constructor-arg 属性进行构造参数注入-->
+    <bean id="car" class="com.spring.domain.Car">
+        <constructor-arg index="0" type="java.lang.String" value="宝马"></constructor-arg>
+        <constructor-arg index="1" type="double" value="100000"></constructor-arg>
+    </bean>
+    <!-- setter方法属性注入-->
+    <bean id="employee" class="com.spring.domain.Employee">
+        <property name="id" value="100001"></property>
+        <property name="name" value="张三"></property>
+        <!-- 注入复杂对象 -->
+        <property name="car" ref="car"/>
+    </bean>
+    <!-- 使用p命名空间注入 -->
+    <bean id="employee2" class="com.spring.domain.Employee"
+          p:id="100002" p:name="李四" p:car-ref="car"/>
+
+    <!-- spEL使用 -->
+    <bean id="valueBean" class="com.spring.domain.ValueBean"/>
+    <bean id="employee3" class="com.spring.domain.Employee">
+        <!-- 调用valueBean的getId -->
+        <property name="id" value="#{valueBean.id}"/>
+        <!-- 直接调用对象的方法 -->
+        <property name="name" value="#{valueBean.pickName().toUpperCase()}"/>
+        <!-- #{car} 效果类似 ref  -->
+        <property name="car" value="#{car}"/>
+    </bean>
+
+    <!-- 集合类型属性注入 -->
+    <bean id="collectionBean" class="com.spring.domain.CollectionBean">
+        <!--
+            array 注入数组
+            list 注入List集合
+            set 注入Set集合
+            map 注入Map集合
+            props 注入 Properties 集合
+         -->
+        <property name="list">
+            <list>
+                <!--
+                    value 注入基本数据类型， String 类型
+                    ref 注入引用Bean的id
+                 -->
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>10</value>
+                <value>10</value>
+                <value>20</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <!-- map中每个元素都是键值对 -->
+                <entry key="abc" value="10"></entry>
+                <entry key="def" value="20"></entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="qwe123">asd456</prop>
+                <prop key="tyu567">hjk789</prop>
+            </props>
+        </property>
+    </bean>
+</beans>
