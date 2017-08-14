@@ -45,9 +45,7 @@ public class AnnotationControllerTest {
     TestDao testDao() {
         return new TestDao() {
             public String hello() {
-                return "nihao";
-            }
-        };
+                return "nihao};
     }
 
     @Test
