@@ -29,6 +29,27 @@
             </list>
         </property>
     </bean>
+
+
+    <bean id="decodeHttpMessageConverter" class="com.example.common.httpmessageconverter.DecodeHttpMessageConverter"/>
+    <!-- 默认的注解映射的支持 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!-- 添加统一请求值处理器 -->
+            <ref bean="decodeHttpMessageConverter"/>
+        </mvc:message-converters>
+        <mvc:return-value-handlers>
+            <!-- 添加统一返回值的处理器 -->
+            <bean class="com.example.common.handler.CommonMethodReturnValueHandler"/>
+        </mvc:return-value-handlers>
+    </mvc:annotation-driven>
+
+    <!-- defaultServlet负责对静态资源文件的访问 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- 添加统一异常处理器 -->
+    <bean class="com.example.common.handler.CommonExceptionHandler"/>
+
     <!-- 定义跳转的文件的前后缀 ，视图模式配置-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
@@ -46,5 +67,4 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960"/>
     </bean>
-
 </beans>

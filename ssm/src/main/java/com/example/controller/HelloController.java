@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.domain.ResultCode;
 import com.example.pojo.User;
 import com.example.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ public class HelloController {
         user.setUsername("夏天");
         user.setPassword("100112");
         userService.insert(user);
+        System.out.println(ResultCode.COMMON_SUCCESS);
         return "hello world";
     }
 }

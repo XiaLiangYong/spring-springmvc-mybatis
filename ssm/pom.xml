@@ -186,6 +186,11 @@
             <artifactId>commons-codec</artifactId>
             <version>${dep.commons-codec.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.directory.studio</groupId>
+            <artifactId>org.apache.commons.lang</artifactId>
+            <version>2.6</version>
+        </dependency>
 
     </dependencies>
     <build>
